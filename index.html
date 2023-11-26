@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Sorteador de Amigo Secreto</title>
+    <script src="http://static.tumblr.com/8l2gpxb/lcllulgcn/snowstorm.js"></script>
+    <script type="text/javascript" src="http://blogparts.giffy.me/0001/parts.js"> </script>
+    <script type="text/javascript" language="javascript" charset="euc-jp"
+        src="http://www.hapinemu.net/fobp/bp037/bp037.js"> </script>
+    <script type='text/javascript' src='http://blogparts.giffy.me/0001/parts.js'></script>
+    <script type="text/javascript" src="http://blogparts.giffy.me/0017/parts.js"></script>
+    <script type="text/javascript" src="http://blogparts.giffy.me/0003/parts.js"></script>
 </head>
+
 <body>
-	  <script src="http://static.tumblr.com/8l2gpxb/lcllulgcn/snowstorm.js"></script>
-<script type="text/javascript" src="http://blogparts.giffy.me/0001/parts.js"> </script>
-<script type="text/javascript" language="javascript" charset="euc-jp" src="http://www.hapinemu.net/fobp/bp037/bp037.js"> </script>
-<script type='text/javascript' src='http://blogparts.giffy.me/0001/parts.js'></script>
-<script type="text/javascript" src="http://blogparts.giffy.me/0017/parts.js"></script><p style="text-align: center;margin:0;padding:0;">
-<script type="text/javascript" src="http://blogparts.giffy.me/0003/parts.js"></script><p style="text-align: center;margin:0;padding:0;">
-<marquee><img src="https://media1.giphy.com/media/GRLE2XwadSfT0j39NW/giphy.gif?cid=ecf05e47ljsqyz9iia0d6tssazesjoeg6qtr8c0cqfu50mv4&ep=v1_stickers_search&rid=giphy.gif&ct=s" width="100" height="100" /></marquee>
-
-
-
-
-
     <div class="container">
         <h1>Sorteador de Amigo Secreto</h1>
         <label for="name">Cadastrar Nome:</label>
@@ -27,13 +24,140 @@
         <div id="participants"></div>
         <button onclick="sortearAmigo()">Sortear Amigo Secreto</button>
         <div id="resultado"></div>
-      Lembre-se O numero de Participantes devem ser PARES para que ninguem receba 2x Presentes !
+        <p style="text-align: center;margin:0;padding:0;">Lembre-se, o número de participantes deve ser PAR para
+            que ninguém receba 2x presentes!</p>
         <script type="text/javascript" src="http://blogparts.giffy.me/0001/parts.js"> </script>
         <div id="links"></div>
     </div>
 
     <script src="./script.js"></script>
-    <marquee><img src="https://media0.giphy.com/media/0IMn4tWv9pTnwz2tc3/giphy.gif?cid=ecf05e47k9ds0l7zhwhbe6uopjp5pr9xc9lk2ye1zkiqh581&ep=v1_stickers_search&rid=giphy.gif&ct=s" width="100" height="100" /></marquee>
-    <marquee><img src="https://media0.giphy.com/media/dyUr82fsLMBdaocjMh/giphy_s.gif?cid=ecf05e472kf4itd2yjv7woesgpcbud6y8r7kvhb6qgaq5phk&ep=v1_stickers_search&rid=giphy_s.gif&ct=s" width="150" height="100" /></marquee> ,<marquee><img src="https://media0.giphy.com/media/dyUr82fsLMBdaocjMh/giphy_s.gif?cid=ecf05e472kf4itd2yjv7woesgpcbud6y8r7kvhb6qgaq5phk&ep=v1_stickers_search&rid=giphy_s.gif&ct=s" width="150" height="100" /></marquee>
+    <marquee><img
+            src="https://media1.giphy.com/media/GRLE2XwadSfT0j39NW/giphy.gif?cid=ecf05e47ljsqyz9iia0d6tssazesjoeg6qtr8c0cqfu50mv4&ep=v1_stickers_search&rid=giphy.gif&ct=s"
+            width="100" height="100" /></marquee>
+    <marquee><img
+            src="https://media0.giphy.com/media/0IMn4tWv9pTnwz2tc3/giphy.gif?cid=ecf05e47k9ds0l7zhwhbe6uopjp5pr9xc9lk2ye1zkiqh581&ep=v1_stickers_search&rid=giphy.gif&ct=s"
+            width="100" height="100" /></marquee>
+    <marquee><img
+            src="https://media0.giphy.com/media/dyUr82fsLMBdaocjMh/giphy_s.gif?cid=ecf05e472kf4itd2yjv7woesgpcbud6y8r7kvhb6qgaq5phk&ep=v1_stickers_search&rid=giphy_s.gif&ct=s"
+            width="150" height="100" /></marquee> ,<marquee><img
+            src="https://media0.giphy.com/media/dyUr82fsLMBdaocjMh/giphy_s.gif?cid=ecf05e472kf4itd2yjv7woesgpcbud6y8r7kvhb6qgaq5phk&ep=v1_stickers_search&rid=giphy_s.gif&ct=s"
+            width="150" height="100" /></marquee>
 </body>
+
 </html>
+
+<script>
+    let participantes = [];
+
+    async function encurtarLinkTinyURL(link) {
+        const url = `http://tinyurl.com/api-create.php?url=${encodeURIComponent(link)}`;
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.text();
+            return data;
+        } else {
+            throw new Error('Falha ao encurtar o link.');
+        }
+    }
+
+    async function gerarLinkEncurtado(participante, sorteado) {
+        const link = `${window.location.origin}/result.html?participante=${participante}&sorteado=${sorteado}`;
+        const linkEncurtado = await encurtarLinkTinyURL(link);
+        return linkEncurtado;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const cadastrarButton = document.getElementById('cadastrar');
+        cadastrarButton.addEventListener('click', cadastrarNome);
+
+        const sortearButton = document.getElementById('sortear');
+        sortearButton.addEventListener('click', sortearAmigo);
+    });
+
+    function cadastrarNome() {
+        const nameInput = document.getElementById('name');
+        const participantsDiv = document.getElementById('participants');
+
+        const name = nameInput.value.trim();
+        if (name === "") {
+            alert('Por favor, insira um nome válido.');
+            return;
+        }
+
+        participantes.push(name);
+        nameInput.value = '';
+
+        exibirParticipantes(participantsDiv);
+    }
+
+    function exibirParticipantes(container) {
+        container.innerHTML = '<p>Participantes:</p>';
+        participantes.forEach(name => {
+            container.innerHTML += `<p>${name}</p>`;
+        });
+    }
+
+    async function sortearAmigo() {
+        const linksDiv = document.getElementById('links');
+
+        if (participantes.length < 2 || participantes.length % 2 !== 0) {
+            alert('Por favor, insira uma quantidade par de participantes maior que 1.');
+            return;
+        }
+
+        linksDiv.innerHTML = '';
+        const participantesSorteados = [];
+
+        // Realiza o sorteio sem permitir que uma pessoa seja sorteada mais de uma vez
+        participantes.forEach(async participante => {
+            let sorteado;
+
+            do {
+                sorteado = sortear(participantes);
+            } while (participantesSorteados.includes(sorteado) || sorteado === participante);
+
+            participantesSorteados.push(sorteado);
+
+            const linkEncurtado = await gerarLinkEncurtado(participante, sorteado);
+
+            // Adiciona os links, botões de copiar e botões de compartilhar
+            linksDiv.innerHTML += `
+                <p>
+                    Link para ${participante}:
+                    <input type="text" value="${linkEncurtado}" readonly>
+                    <button onclick="copiarLink('${linkEncurtado}')">Copiar</button>
+                    <button onclick="compartilharLink('${linkEncurtado}')">Compartilhar</button>
+                </p>`;
+        });
+    }
+
+    function copiarLink(link) {
+        const textarea = document.createElement('textarea');
+        textarea.value = link;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Link copiado para a área de transferência!');
+    }
+
+    function compartilharLink(link) {
+        if (navigator.share) {
+            navigator.share({
+                    title: 'Link do Sorteio',
+                    text: 'Confira o seu sorteio!',
+                    url: link,
+                })
+                .then(() => console.log('Link compartilhado com sucesso!'))
+                .catch((error) => console.error('Erro ao compartilhar link:', error));
+        } else {
+            alert('Desculpe, o compartilhamento não é suportado no seu navegador.');
+        }
+    }
+
+    function sortear(participantesRestantes) {
+        const sorteadoIndex = Math.floor(Math.random() * participantesRestantes.length);
+        return participantesRestantes[sorteadoIndex];
+    }
+</script>
